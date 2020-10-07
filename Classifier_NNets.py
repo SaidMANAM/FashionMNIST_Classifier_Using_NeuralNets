@@ -11,8 +11,13 @@ Y_train = y_train[5000:]
 X_val = x_train[:5000]
 Y_val = y_train[:5000]
 model = tf.keras.Sequential(
-    [tf.keras.layers.Flatten(input_shape=[28, 28]), tf.keras.layers.Dense(300, activation='relu'),
-     tf.keras.layers.Dense(100, activation='relu'), tf.keras.layers.Dense(10, activation='softmax')])
+    [tf.keras.layers.Flatten(input_shape=[28, 28]),
+     keras.layers.BatchNormalization(),
+     tf.keras.layers.Dense(300, activation = 'relu'),
+     keras.layers.BatchNormalization(),
+     tf.keras.layers.Dense(100, activation='relu'),
+     keras.layers.BatchNormalization(),
+     tf.keras.layers.Dense(10, activation='softmax')])
 
 model.compile(loss='sparse_categorical_crossentropy', optimizer='sgd', metrics=['accuracy'])
 history = model.fit(X_train, Y_train, validation_data=(X_val, Y_val), epochs=70)
